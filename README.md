@@ -151,38 +151,6 @@ The dataset covers **Jaldhara Drinks Pvt. Ltd.**, a fictional Indian summer beve
 
 ---
 
-## Sample Queries
-
-**Total units sold per platform, FY 2024-25**
-```sql
-SELECT p.platform_name, SUM(f.qty_sold) AS total_units
-FROM fact_sales f
-JOIN dim_platform p ON f.platform_id = p.platform_id
-WHERE f.sale_date BETWEEN '2024-04-01' AND '2025-03-31'
-GROUP BY p.platform_name
-ORDER BY total_units DESC;
-```
-
-**Top 5 SKUs by revenue in peak summer (Apr–Jun 2024)**
-```sql
-SELECT f.internal_sku_name, f.category, SUM(f.mrp) AS total_revenue
-FROM fact_sales f
-WHERE MONTH(f.sale_date) IN (4, 5, 6) AND YEAR(f.sale_date) = 2024
-GROUP BY f.internal_sku_name, f.category
-ORDER BY total_revenue DESC
-LIMIT 5;
-```
-
-**City-wise sales with region breakdown**
-```sql
-SELECT f.region, f.state, f.city_name, SUM(f.qty_sold) AS units
-FROM fact_sales f
-GROUP BY f.region, f.state, f.city_name
-ORDER BY f.region, units DESC;
-```
-
----
-
 ## Author
 
 **Akshay Bisht**  
